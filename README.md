@@ -1,6 +1,6 @@
 
 ### PHP GetFormattedNumber Function
-PHP GetFormattedNumber Function (Türkçe açıklama aşağıda)
+PHP GetFormattedNumber Function 
 In this project, there is a PHP function named getFormattedNumber that converts numbers into various formats. This function formats numbers according to the specified locale, style, and other parameters.
 
 ### Features
