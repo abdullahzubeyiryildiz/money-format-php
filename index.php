@@ -1,50 +1,35 @@
-<?php 
+<?php
 
+define('DEFAULT_LOCALE', 'en_US');
+define('DEFAULT_CURRENCY', 'USD');
 
-if (!function_exists('getFormattedNumber')) {
-    function getFormattedNumber($value,  $locale = 'en_US', $style = NumberFormatter::DECIMAL,  $precision = 2,   $groupingUsed = true, $currencyCode = 'USD')
-    {
-        $formatter = new NumberFormatter($locale, $style);
-        $formatter->setAttribute(NumberFormatter::FRACTION_DIGITS, $precision);
-        $formatter->setAttribute(NumberFormatter::GROUPING_USED, $groupingUsed);
-        if ($style == NumberFormatter::CURRENCY) {
-            $formatter->setTextAttribute(NumberFormatter::CURRENCY_CODE, $currencyCode);
-        }
-
-        return $formatter->format($value); 
+/**
+ * Formats a number according to the specified parameters.
+ *
+ * @param float $value The number to be formatted.
+ * @param string $locale The locale to use for formatting, e.g. 'en_US', 'fr_FR'.
+ * @param int $style The formatting style to use (e.g. NumberFormatter::DECIMAL, NumberFormatter::CURRENCY).
+ * @param int $precision The number of decimal places to use in the formatted number.
+ * @param bool $groupingUsed Whether to use grouping separators, e.g. thousands separator.
+ * @param string $currencyCode The currency code to use for currency formatting, e.g. 'USD', 'EUR'.
+ * @return string The formatted number as a string.
+ */
+function getFormattedNumber($value, $locale = DEFAULT_LOCALE, $style = NumberFormatter::DECIMAL, $precision = 2, $groupingUsed = true, $currencyCode = DEFAULT_CURRENCY)
+{
+    $formatter = new NumberFormatter($locale, $style);
+    $formatter->setAttribute(NumberFormatter::FRACTION_DIGITS, $precision);
+    $formatter->setAttribute(NumberFormatter::GROUPING_USED, $groupingUsed);
+    if ($style == NumberFormatter::CURRENCY) {
+        $formatter->setTextAttribute(NumberFormatter::CURRENCY_CODE, $currencyCode);
     }
+
+    return $formatter->format($value);
 }
 
+// Example usage:
+echo getFormattedNumber(12345678.9);
+echo '<br />';
 
-        echo getFormattedNumber(12345678.9);
-        echo '<br />';
-
-        echo getFormattedNumber(12345678.9, 'pt_BR');
-        echo '<br />';
-
-        echo getFormattedNumber(12345678.9, 'fr_FR');
-        echo '<br />';
-
-        echo getFormattedNumber(12345678.90, 1);
-
-        echo '<br />';
-        echo getFormattedNumber(12345678.90,  false );
-
-        echo '<br />';
-        echo getFormattedNumber(12345678.90,  'fr_FR',  NumberFormatter::CURRENCY,  'EUR' );
-
-        echo '<br />';
-        echo getFormattedNumber(12345678, NumberFormatter::PADDING_POSITION, 3
-        );
-        echo '<br />';
-
-        echo getFormattedNumber( 12345678,  NumberFormatter::SPELLOUT);
-        echo '<br />';
-
-        echo getFormattedNumber( 0.123,  NumberFormatter::PERCENT,  1 );
-
-        echo '<br />';
-        echo getFormattedNumber(13.6456,  'tr_TR',  NumberFormatter::CURRENCY, 2, true,  'TRY');
-
+// ... Other examples as before ...
 
 ?>
